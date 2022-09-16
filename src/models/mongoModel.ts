@@ -19,9 +19,16 @@ export default abstract class MongoModel<T> {
   }
 
   public async readOne(_id: string): Promise<T | null> {
-    console.log(_id);
     if (!isValidObjectId(_id)) throw new Error(ErrorTypes.InvalidMongoId);
     const data = await this._model.findById(_id);
     return data;
-  } 
+  }
+
+  public async update(_id: string, obj: T): Promise<T | null> {
+    if (!isValidObjectId(_id)) throw new Error(ErrorTypes.InvalidMongoId);
+    const result = await this._model.updateOne({ id: _id }, { $set: obj });
+    if (result.matchedCount === 0) return null;
+    // console.log(result);
+    return result as unknown as T;
+  }
 }
