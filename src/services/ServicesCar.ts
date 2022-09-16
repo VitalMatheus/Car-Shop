@@ -20,7 +20,13 @@ class CarService implements IService<ICar> {
 
   public async read(): Promise<ICar[]> {
     const data = await this._car.read();
-    if (!data) throw new Error(ErrorTypes.EntityNotFound);
+    if (!data) throw new Error(ErrorTypes.ObjectNotFound);
+    return data;
+  }
+
+  public async readOne(_id: string): Promise<ICar> {
+    const data = await this._car.readOne(_id);
+    if (!data) throw new Error(ErrorTypes.ObjectNotFound);
     return data;
   }
 }

@@ -10,11 +10,14 @@ export default class CarController {
     return res.status(201).json(data);
   }
 
-  public async read(
-    req: Request,
-    res: Response<ICar[]>,
-  ) {
+  public async read(req: Request, res: Response<ICar[]>) {
     const data = await this._service.read();
+    return res.status(200).json(data);
+  }
+
+  public async readOne(req: Request, res: Response<ICar>) {
+    const { id } = req.params;
+    const data = await this._service.readOne(id);
     return res.status(200).json(data);
   }
 }
