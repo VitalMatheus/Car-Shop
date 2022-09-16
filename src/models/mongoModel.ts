@@ -11,4 +11,9 @@ export default abstract class MongoModel<T> {
     const data = await this._model.create({ ...obj });
     return data as T;
   }
+
+  public async read(): Promise<T[]> {
+    const data = await this._model.find();
+    return data;
+  }
 }
