@@ -22,13 +22,19 @@ describe('Car Model', () => {
 		});
 	});
 
-	// 	it('_id not found', async () => {
-	// 		try {
-	// 			await carModel.readOne('123ERRADO');
-	// 		} catch (error: any) {
-	// 			expect(error.message).to.be.eq('InvalidMongoId');
-	// 		}
-	// 	});
-	// });
+		it('_id not found', async () => {
+			try {
+				await carModel.readOne('QualquerIdErrado');
+			} catch (error: any) {
+				expect(error.message).to.be.eq('InvalidMongoId');
+			}
+		});
 
+		it('_id not valid', async () => {
+			try {
+				await carModel.readOne('6324db0j072a8e288519e10e');
+			} catch (error: any) {
+				expect(error.message).to.be.eq('ObjectNotFound');
+			}
+		});
 });
