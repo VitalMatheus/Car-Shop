@@ -12,7 +12,7 @@ const motorcycleMongooseSchema = new Schema<IMotorcycle>({
   engineCapacity: Number,
 }, { versionKey: false });
 
-export default class CarModel extends MongoModel<IMotorcycle> {
+export default class MotoModel extends MongoModel<IMotorcycle> {
   constructor(model = mongooseCreateModel('Motos', motorcycleMongooseSchema)) {
     super(model);
   }

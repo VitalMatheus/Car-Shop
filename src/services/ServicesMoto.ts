@@ -42,7 +42,6 @@ export default class MotoService implements IService<IMotorcycle> {
 
   public async delete(_id: string): Promise<IMotorcycle> {
     const data = await this._moto.delete(_id);
-    console.log('data: ', data);
     if (!data) throw new Error(ErrorTypes.ObjectNotFound);
     return data;
   }
