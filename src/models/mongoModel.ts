@@ -24,11 +24,11 @@ export default abstract class MongoModel<T> {
     return data;
   }
 
-  public async update(_id: string, obj: T): Promise<T | null> {
+  public async update(_id: string, obj: Partial<T>): Promise<T | null> {
     if (!isValidObjectId(_id)) throw new Error(ErrorTypes.InvalidMongoId);
-    const data = await this._model.updateOne({ id: _id }, { $set: obj });
-    if (data.matchedCount === 0) return null;
-    return data as unknown as T;
+    if (Object.keys(obj).length === 0) throw new Error(ErrorTypes.EmptyObject);
+    const data = await this._model.findOneAndUpdate({ _id }, obj, { new: true, versionKey: false });
+    return data;
   }
 
   public async delete(_id: string): Promise<T | null> {
